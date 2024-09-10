@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Penjualan extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_penjualan';
     public $incrementing = false;
+    public $timestamps = false;
     protected $keyType = 'string';
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
-            $model->id_barang = 'PJL' . mt_rand(100000, 999999);
+            $model->id_penjualan = 'PJL' . mt_rand(100000, 999999);
         });
     }
 
@@ -33,5 +35,15 @@ class Penjualan extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function detailPenjualan()
+    {
+        return $this->hasMany(detailPenjualan::class, 'penjualan_id', 'id_penjualan');
+    }
+
+    public function scopeForCurrentUser($query)
+    {
+        return $query->where('user_id', Auth::id());
     }
 }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('detail_penjualan', function (Blueprint $table) {
             $table->string('id_detail_penjualan')->primary();
-            $table->string('penjualan_id')->onDelete('cascade');
+            $table->string('penjualan_id')->onDelete('cascade')->nullable()->default(null);
             $table->string('barang_id')->onDelete('cascade');
-            $table->decimal('kuantitas');
+            $table->integer('kuantitas');
             $table->decimal('harga_jual');
             $table->timestamps();
             

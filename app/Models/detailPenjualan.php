@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class detailPenjualan extends Model
 {
@@ -15,12 +16,12 @@ class detailPenjualan extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
-            $model->id_barang = 'DJL' . mt_rand(100000, 999999);
+      static::creating(function ($model) {
+            $model->id_detail_penjualan = 'DJL' . mt_rand(100000, 999999);
         });
     }
 
-    protected $table = 'barang';
+    protected $table = 'detail_penjualan';
 
     protected $fillable = [
         'penjualan_id',
@@ -29,8 +30,20 @@ class detailPenjualan extends Model
         'harga_jual',
     ];
 
-    public function user()
+
+    public function penjualan()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Penjualan::class, 'penjualan_id', 'id_penjualan');
+    }
+
+    // Relasi ke model Item
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barang_id');
+    }
+
+    public function scopeForCurrentUser($query)
+    {
+        return $query->where('user_id', Auth::id());
     }
 }

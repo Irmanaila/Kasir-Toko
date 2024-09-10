@@ -7,7 +7,7 @@ $(function () {
             },
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
             lengthMenu: "_MENU_ entri",
-            zeroRecords: "Tidak ada data yang cocok ditemukan",
+            zeroRecords: "Tidak ada data ",
         },
         dom: "Brtip",
         buttons: [
@@ -21,5 +21,12 @@ $(function () {
     // Tangani input search custom
     $("#cariBarang").on("keyup", function () {
         table.search(this.value).draw();
+    });
+});
+
+$(function() {
+    $('#item-select').select2({
+        placeholder: "Pilih barang...",
+        allowClear: true
     });
 });
