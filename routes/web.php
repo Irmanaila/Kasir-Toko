@@ -5,7 +5,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PenjualanController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();

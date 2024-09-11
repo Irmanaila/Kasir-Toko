@@ -34,12 +34,25 @@ class BarangController extends Controller
 
     public function tambah(Request $request)
     {
-        $file = $request->file('foto');
-
-        $NamaFoto = time() . '_' . $file->getClientOriginalName();
-
-        $file->move(public_path('foto_barang'), $NamaFoto);
-
+        // Validasi untuk memastikan kode_barang tidak boleh sama untuk user yang sama
+        $cekKodeBarang = Barang::where('user_id', Auth::id())
+                                ->where('kode_barang', $request->kode_barang)
+                                ->first();
+    
+        if ($cekKodeBarang) {
+            return redirect()->back()->withErrors(['kode_barang' => 'Kode barang sudah ada.']);
+        }
+    
+        // Upload foto
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $NamaFoto = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('foto_barang'), $NamaFoto);
+        } else {
+            $NamaFoto = null; // Atau beri nilai default jika tidak ada foto yang diunggah
+        }
+    
+        // Buat barang baru
         Barang::create([
             'user_id' => Auth::id(),
             'kode_barang' => $request->kode_barang,
@@ -49,9 +62,10 @@ class BarangController extends Controller
             'harga_jual' => $request->harga_jual,
             'foto' => $NamaFoto,
         ]);
-
+    
         return redirect()->back()->with('success', 'Barang berhasil ditambahkan.');
     }
+    
 
     public function hapus($id_barang)
     {

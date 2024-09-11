@@ -43,16 +43,17 @@
 </div>
 
 <div class="modal fade" id="detailTransaksi" tabindex="-1" aria-labelledby="detailTransaksiLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="detailTransaksiLabel">Detail Transaksi<span id="modalTransactionId"></span>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <hr>
             <div class="modal-body">
                 <div id="modalContent">
-                    <!-- Content will be loaded here -->
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -60,26 +61,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<script>
-    $(document).ready(function() {
-        $('#detailTransaksi').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var modal = $(this);
-
-            $.ajax({
-                url: '/detail-riwayat-penjualan/' + id,
-                type: 'GET',
-                success: function(response) {
-                    modal.find('.modal-body #modalContent').html(response);
-                },
-                error: function(xhr) {
-                    modal.find('.modal-body #modalContent').html(
-                        'Terjadi kesalahan saat memuat data.');
-                }
-            });
-        });
-    });
-</script>
+</div>  

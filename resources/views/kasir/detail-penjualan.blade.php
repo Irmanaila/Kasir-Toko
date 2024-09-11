@@ -30,6 +30,14 @@
                 <td colspan="4" class="text-end"><strong>Total:</strong></td>
                 <td><strong>Rp {{ number_format($penjualan->total_transaksi, 0, ',', '.') }}</strong></td>
             </tr>
+            <tr>
+                <td colspan="4" class="text-end"><strong>Uang Diterima:</strong></td>
+                <td><strong>Rp {{ number_format($penjualan->uang_diterima, 0, ',', '.') }}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-end"><strong>Kembalian:</strong></td>
+                <td><strong>Rp {{ number_format($penjualan->kembalian, 0, ',', '.') }}</strong></td>
+            </tr>
         </tfoot>
     </table>
 </div>

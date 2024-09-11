@@ -61,12 +61,12 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Halaman</span>
         </li>
-        <li class="menu-item">
+        {{-- <li class="menu-item">
             <a href="{{ route('barang') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Beranda</div>
             </a>
-        </li>
+        </li> --}}
         <li class="menu-item {{ url()->current() == url('/barang') ? 'active' : '' }} ">
             <a href="{{ url('/barang') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>

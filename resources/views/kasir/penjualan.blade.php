@@ -34,7 +34,7 @@
                                 </div>
                             @endif
                             <div class="row">
-                                <div class="col-md-4 mt-4">
+                                <div class="col-md-4">
                                     <div class="card">
                                         <div class="pb-0 px-3 d-flex col-12">
                                             <h6 class="mb-0 mt-3">Pilih Barang</h6>
@@ -60,7 +60,7 @@
                                                     @if ($barangTerpilih)
                                                         {{ $barangTerpilih->nama_barang }}
                                                     @else
-                                                        <p>Barang tidak tersedia</p>
+                                                        <p class="mb-0">Barang tidak tersedia</p>
                                                     @endif
                                                 </div>
                                             </div>
@@ -71,7 +71,7 @@
                                                     @if ($barangTerpilih)
                                                         {{ $barangTerpilih->harga_jual }}
                                                     @else
-                                                        <p>Barang tidak tersedia</p>
+                                                        <p class="mb-0">Barang tidak tersedia</p>
                                                     @endif
                                                 </div>
                                             </div>
@@ -90,12 +90,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-8 mt-4">
-                                    <div class="card">
-
+                                <div class="col-md-8 ">
+                                    <div class="card h-100 d-flex flex-column">
                                         @if (session('keranjang'))
                                             <div class="card-header d-flex align-items-center">
-                                                <h5 class="flex-grow-1 m-0">Penjualan</h5>
+                                                <h5 class="flex-grow-1 m-0">Transaksi</h5>
                                             </div>
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table">
@@ -140,41 +139,41 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
-
+                                            </div>
+                                            <hr>
+                                            <div class="ms-auto me-4 mb-4">
+                                                <form action="{{ route('penjualan.transaksi') }}" method="post">
+                                                    @csrf
+                                                    <div class="d-flex justify-content-end mt-3 me-4">
+                                                        <h6>Total Keseluruhan: Rp
+                                                            {{ number_format($totalKeseluruhan, 0, ',', '.') }}.-</h6>
+                                                    </div>
+                                                    <input type="hidden" name="total_transaksi"
+                                                        value="{{ $totalKeseluruhan }}">
+                                                    <h6 class="text-end me-4">Kembalian : <span id="kembalian">0</span></h6>
+                                                    <input type="hidden" id="hiddenKembalian" name="kembalian" />
+                                                    <input id="bayar" class="form-control mb-2" type="text"
+                                                        placeholder="Pembayaran" name="uang_diterima" required />
+                                                    <div id="warning" class="text-danger mt-2" style="display: none;">Uang
+                                                        kurang dari total pembayaran.</div>
+                                                    <button type="submit"
+                                                        class="btn btn-primary d-flex ms-auto">Selesai</button>
+                                                </form>
                                             </div>
                                         @else
-                                            <div class="card-header d-flex align-items-center">
-                                                <h5 class="flex-grow-1 m-0">Penjualan</h5>
-                                            </div>
-                                            <div class="card-body d-flex justify-content-center align-items-center">
-                                                <i class="bi bi-bag-x-fill" style="font-size: 5rem;"></i>
+                                            <div class="card flex-grow-1 d-flex flex-column">
+                                                <div class="card-header d-flex align-items-center">
+                                                    <h5 class="flex-grow-1 m-0">Transaksi</h5>
+                                                </div>
+                                                <div
+                                                    class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+                                                    <i class="bi bi-bag-x-fill" style="font-size: 5rem;"></i>
+                                                    <h4 class="text-center">Tidak ada transaksi, tambahkan barang!</h4>
+                                                </div>
                                             </div>
                                         @endif
-                                        <hr>
-                                        <div class="ms-auto me-4 mb-4">
-                                            <form action="{{ route('penjualan.transaksi') }}" method="post">
-                                                @csrf
-                                                <div class="d-flex justify-content-end mt-3 me-4">
-                                                    <h6>Total Keseluruhan: Rp
-                                                        {{ number_format($totalKeseluruhan, 0, ',', '.') }}.-</h6>
-                                                </div>
-                                                <input type="hidden" name="total_transaksi" value="{{ $totalKeseluruhan }}">
-
-                                                <h6 class="text-end me-4">Kembalian : <span id="kembalian">0</span></h6>
-                                                <input type="hidden" id="hiddenKembalian" name="kembalian" />
-                                                <input id="bayar" class="form-control mb-2" type="text"
-                                                    placeholder="Pembayaran" name="uang_diterima" required/>
-                                                <div id="warning" class="text-danger mt-2" style="display: none;">
-                                                    Uang kurang dari total pembayaran.
-                                                </div>
-                                                <button type="submit" class="btn btn-primary d-flex ms-auto">
-                                                    Selesai
-                                                </button>
-                                            </form>
-                                        </div>
                                     </div>
                                 </div>
-                                <!-- Tambahkan lebih banyak card di sini jika diperlukan -->
                             </div>
                         </div>
                         <script>
@@ -184,6 +183,7 @@
                                 const kembalianElement = document.getElementById('kembalian');
                                 const warningElement = document.getElementById('warning');
                                 const hiddenKembalian = document.getElementById('hiddenKembalian');
+                                const form = document.querySelector('form[action="{{ route('penjualan.transaksi') }}"]');
 
                                 bayarInput.addEventListener('input', function() {
                                     const bayar = parseFloat(bayarInput.value.replace(/\./g, '').replace(',', '.')) || 0;
@@ -202,18 +202,21 @@
                                         }).format(kembalian) :
                                         '0';
 
-                                    // Update hidden field with kembalian value
                                     hiddenKembalian.value = kembalian;
+                                });
+
+                                form.addEventListener('submit', function(event) {
+                                    const bayar = parseFloat(bayarInput.value.replace(/\./g, '').replace(',', '.')) || 0;
+                                    if (bayar < totalKeseluruhan) {
+                                        event.preventDefault();
+                                        warningElement.textContent = 'Uang yang dibayarkan tidak cukup!';
+                                        warningElement.style.display = 'block';
+                                    }
                                 });
                             });
                         </script>
-
-
+                        
                         <!-- / Content -->
-
-                        <!-- Footer -->
-                        @include('kasir.components.footer')
-                        <!-- / Footer -->
 
                         <div class="content-backdrop fade"></div>
                     </div>
