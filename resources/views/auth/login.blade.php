@@ -40,7 +40,7 @@
                                 <a class="mb-0 ps-0 text-dark d-flex align-items-center text-nowrap" href="{{ route('register') }}">Belum mempunyai akun?
                                     <span class="btn btn-link ps-1 pe-0">Register</span> 
                                 </a>
-                                <button type="submit" class="btn btn-primary btn-sm ">
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
                                 
