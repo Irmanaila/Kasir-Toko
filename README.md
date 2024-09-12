@@ -2,7 +2,7 @@
 
 
 
-# Aplikasi Berbasis Web Rencana Tabungan
+# Aplikasi Berbasis Web Kasir Toko
 
 Aplikasi ini dikembangkan guna membantu mempermudah dan mempercepat proses penjualan dan pendataan penjualan.
 
