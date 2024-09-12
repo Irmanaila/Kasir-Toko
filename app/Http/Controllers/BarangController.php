@@ -34,7 +34,6 @@ class BarangController extends Controller
 
     public function tambah(Request $request)
     {
-        // Validasi untuk memastikan kode_barang tidak boleh sama untuk user yang sama
         $cekKodeBarang = Barang::where('user_id', Auth::id())
                                 ->where('kode_barang', $request->kode_barang)
                                 ->first();
@@ -49,7 +48,7 @@ class BarangController extends Controller
             $NamaFoto = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('foto_barang'), $NamaFoto);
         } else {
-            $NamaFoto = null; // Atau beri nilai default jika tidak ada foto yang diunggah
+            $NamaFoto = null; 
         }
     
         // Buat barang baru
@@ -57,7 +56,6 @@ class BarangController extends Controller
             'user_id' => Auth::id(),
             'kode_barang' => $request->kode_barang,
             'nama_barang' => $request->nama_barang,
-            'stok' => $request->stok,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
             'foto' => $NamaFoto,
@@ -78,7 +76,6 @@ class BarangController extends Controller
     {
         $barang = Barang::findOrFail($id_barang);
     
-        // Variabel untuk menyimpan nama foto yang baru
         $updateNamaFoto = $barang->foto;
     
         if ($request->hasFile('updateFoto')) {
@@ -97,13 +94,11 @@ class BarangController extends Controller
         $barang->update([
             'kode_barang' => $request->input('updateKodeBarang', $barang->kode_barang),
             'nama_barang' => $request->input('updateNamaBarang', $barang->nama_barang),
-            'stok' => $request->input('updateStok', $barang->stok),
             'harga_modal' => $request->input('updateHargaModal', $barang->harga_modal),
             'harga_jual' => $request->input('updateHargaJual', $barang->harga_jual),
             'foto' => $updateNamaFoto,
         ]);
     
-        // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Barang berhasil diperbarui.');
     }
     

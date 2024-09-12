@@ -10,7 +10,7 @@
     </div>
 
     <div class="table-responsive text-nowrap">
-        <table class="table" id="table-barang">
+        <table class="table" id="table-data-transaksi">
             <thead>
                 <tr>
                     <th>No</th>
@@ -26,7 +26,7 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $penjualan->tanggal_transaksi }}</td>
                         <td>{{ $penjualan->id_penjualan }}</td>
-                        <td>Rp {{ number_format($penjualan->total_transaksi, 0, ',', '.') }}</td>
+                        <td data-sort="{{ $penjualan->harga_jual }}">Rp {{ number_format($penjualan->total_transaksi, 0, ',', '.') }}</td>
                         <td class="text-center">
                             <button class="btn btn-primary rounded-pill btn-sm p-2 px-3 align-items-center detail-btn"
                                 type="button" data-bs-toggle="modal" data-bs-target="#detailTransaksi"
@@ -35,7 +35,6 @@
                                 <span>Detail</span>
                             </button>
                         </td>
-                    </tr>
                 @endforeach
             </tbody>
         </table>

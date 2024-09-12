@@ -30,7 +30,6 @@ class Barang extends Model
         'foto',
         'harga_modal',
         'harga_jual',
-        'stok',
     ];
 
     public function user()

@@ -34,8 +34,8 @@
                                 </div>
                             @endif
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card">
+                                <div class="col-md-4 mb-md-0">
+                                    <div class="card mb-4 mb-md-0">
                                         <div class="pb-0 px-3 d-flex col-12">
                                             <h6 class="mb-0 mt-3">Pilih Barang</h6>
                                             <div class="ms-md-auto pe-md-3 mb-2 mt-2 align-items-center">
@@ -48,32 +48,63 @@
                                                 <div class="input-group mb-2">
                                                     <input type="text" class="form-control" placeholder="Kode Barang"
                                                         name="kode_barang" required />
-                                                    <button class="btn btn-outline-primary btn-sm" type="button"><i
+                                                    <button class="btn btn-outline-primary btn-sm" type="button"
+                                                        data-bs-toggle="modal" data-bs-target="#pilihBarang"><i
                                                             class="fas fa-search" aria-hidden="true"></i></button>
                                                     <button class="btn btn-outline-primary" type="submit">Pilih</button>
                                                 </div>
                                             </form>
+                                            <div class="modal fade" id="pilihBarang" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel1">Pilih Barang
+                                                            </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div id="modalContent">
 
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-secondary"
+                                                                data-bs-dismiss="modal">
+                                                                Tutup
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-md-12">
                                                 <label for="defaultFormControlInput" class="form-label">Nama</label>
-                                                <div class="form-control mb-2" id="defaultFormControlInput">
-                                                    @if ($barangTerpilih)
+                                                @if ($barangTerpilih)
+                                                    <div class="form-control mb-2 border-success"
+                                                        id="defaultFormControlInput">
                                                         {{ $barangTerpilih->nama_barang }}
-                                                    @else
-                                                        <p class="mb-0">Barang tidak tersedia</p>
-                                                    @endif
-                                                </div>
+                                                    </div>
+                                                @else
+                                                    <div class="form-control mb-2 border-danger"
+                                                        id="defaultFormControlInput">
+                                                        <p class="mb-0">Barang Tidak Tersedia</p>
+                                                    </div>
+                                                @endif
                                             </div>
 
                                             <div class="col-md-12">
                                                 <label for="defaultFormControlInput" class="form-label">Harga Satuan</label>
-                                                <div class="form-control mb-2" id="defaultFormControlInput">
-                                                    @if ($barangTerpilih)
+                                                @if ($barangTerpilih)
+                                                    <div class="form-control mb-2 border-success"
+                                                        id="defaultFormControlInput">
                                                         {{ $barangTerpilih->harga_jual }}
-                                                    @else
-                                                        <p class="mb-0">Barang tidak tersedia</p>
-                                                    @endif
-                                                </div>
+                                                    </div>
+                                                @else
+                                                    <div class="form-control mb-2 border-danger"
+                                                        id="defaultFormControlInput">
+                                                        <p class="mb-0">Barang Tidak Tersedia</p>
+                                                    </div>
+                                                @endif
                                             </div>
 
                                             <form action="{{ route('penjualan.tambah-barang') }}" method="post">
@@ -150,11 +181,13 @@
                                                     </div>
                                                     <input type="hidden" name="total_transaksi"
                                                         value="{{ $totalKeseluruhan }}">
-                                                    <h6 class="text-end me-4">Kembalian : <span id="kembalian">0</span></h6>
+                                                    <h6 class="text-end me-4">Kembalian : <span id="kembalian">0</span>
+                                                    </h6>
                                                     <input type="hidden" id="hiddenKembalian" name="kembalian" />
                                                     <input id="bayar" class="form-control mb-2" type="text"
                                                         placeholder="Pembayaran" name="uang_diterima" required />
-                                                    <div id="warning" class="text-danger mt-2" style="display: none;">Uang
+                                                    <div id="warning" class="text-danger mt-2" style="display: none;">
+                                                        Uang
                                                         kurang dari total pembayaran.</div>
                                                     <button type="submit"
                                                         class="btn btn-primary d-flex ms-auto">Selesai</button>
@@ -215,7 +248,7 @@
                                 });
                             });
                         </script>
-                        
+
                         <!-- / Content -->
 
                         <div class="content-backdrop fade"></div>

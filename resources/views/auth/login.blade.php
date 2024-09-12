@@ -37,12 +37,13 @@
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
-                                <a class="mb-0 ps-0 text-dark d-flex align-items-center" href="{{ route('register') }}">Belum mempunyai akun?
-                                    <span class="btn btn-link ps-1">Register</span> 
+                                <a class="mb-0 ps-0 text-dark d-flex align-items-center text-nowrap" href="{{ route('register') }}">Belum mempunyai akun?
+                                    <span class="btn btn-link ps-1 pe-0">Register</span> 
                                 </a>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary btn-sm ">
                                     {{ __('Login') }}
                                 </button>
+                                
                             </div>
                         </form>
                     </div>

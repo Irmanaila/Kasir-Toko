@@ -20,3 +20,22 @@ $(function() {
         });
     });
 });
+
+$(function() {
+    $('#pilihBarang').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+
+        $.ajax({
+            url: '/modal-pilih-barang/',
+            type: 'GET',
+            success: function(response) {
+                modal.find('.modal-body #modalContent').html(response);
+            },
+            error: function(xhr) {
+                modal.find('.modal-body #modalContent').html(
+                    'Terjadi kesalahan saat memuat data.');
+            }
+        });
+    });
+});

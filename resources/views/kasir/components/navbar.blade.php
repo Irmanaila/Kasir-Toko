@@ -1,13 +1,13 @@
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme d-flex justify-content-between"
     id="layout-navbar">
 
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center me-2">
         <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
             <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bi bi-list fs-1"></i>
             </a>
         </div>
-        <h5 class="fw-bold text-nowrap mb-0">
+        <h5 class="fw-bold text-nowrap mb-0 fs-6 fs-sm-5 fs-md-5">
             @if (url()->current() == url('/barang'))
                 <span class="text-muted fw-light">Halaman /</span> Data Barang
             @elseif (url()->current() == url('/penjualan'))

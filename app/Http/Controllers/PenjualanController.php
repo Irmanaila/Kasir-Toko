@@ -13,7 +13,7 @@ class PenjualanController extends Controller
 {
     public function penjualan()
     {
-        $barang = Barang::forCurrentUser()->get();
+        $item = Barang::forCurrentUser()->get();
         $barangTerpilih = session()->get('barangTerpilih');
         $keranjang = session()->get('keranjang', []);
 
@@ -26,7 +26,7 @@ class PenjualanController extends Controller
 
         // Kirim data ke view
         return view('kasir.penjualan', [
-            'barang' => $barang,
+            'item' => $item,
             'barangTerpilih' => $barangTerpilih,
             'keranjang' => $keranjang,
             'totalKeseluruhan' => $totalKeseluruhan,
@@ -44,8 +44,13 @@ class PenjualanController extends Controller
     public function detailPenjualan($id)
     {
         $penjualan = Penjualan::with('detailPenjualan')->findOrFail($id);
-        // dd($penjualan);
-        return view('kasir.detail-penjualan', compact('penjualan'));
+        return view('kasir.components.detail-penjualan', compact('penjualan'));
+    }
+
+    public function modalPilihBarang()
+    {
+        $item = Barang::forCurrentUser()->get();
+        return view('kasir.components.modal-pilih-barang', compact('item'));
     }
 
 
@@ -68,8 +73,17 @@ class PenjualanController extends Controller
     public function tambahBarangkePenjualan(Request $request)
     {
         $barangTerpilih = session()->get('barangTerpilih');
+    
+        if (!$barangTerpilih || !$barangTerpilih->id_barang) {
+            return redirect()->back()->with('error', 'Tidak ada barang yang dipilih, silakan tambahkan barang terlebih dahulu.');
+        }
+    
         $barang = Barang::where('id_barang', $barangTerpilih->id_barang)->forCurrentUser()->first();
-
+    
+        if (!$barang) {
+            return redirect()->back()->with('error', 'Barang tidak ditemukan, silakan coba lagi.');
+        }
+    
         $keranjang = session()->get('keranjang', []);
         $keranjang[] = [
             'foto' => $barang->foto,
@@ -78,13 +92,12 @@ class PenjualanController extends Controller
             'kuantitas' => $request->kuantitas,
             'harga_jual' => $barang->harga_jual,
         ];
-
+    
         session()->put('keranjang', $keranjang);
-        // dd(session()->get('keranjang'));
-
-
+    
         return redirect()->back()->with('success', 'Barang berhasil ditambahkan ke keranjang!');
     }
+    
 
     public function hapusBarang(Request $request)
     {

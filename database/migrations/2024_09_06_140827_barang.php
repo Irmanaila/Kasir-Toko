@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('foto');
             $table->decimal('harga_modal');
             $table->decimal('harga_jual');
-            $table->integer('stok');
             $table->timestamps();
         });
     }   

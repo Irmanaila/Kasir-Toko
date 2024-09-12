@@ -23,7 +23,6 @@
                     <th class="text-center">No</th>
                     <th>Kode Barang</th>
                     <th>Nama Barang</th>
-                    <th>Stok</th>
                     <th>Harga Modal</th>
                     <th>Harga Jual</th>
                     <th class="text-center">
@@ -34,18 +33,19 @@
             <tbody class="table-border-bottom-0">
                 @foreach ($barang as $barang)
                     <tr>
-                        <td class="text-center"> {{ $loop->iteration }}</td>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $barang->kode_barang }}</td>
                         <td>{{ $barang->nama_barang }}</td>
-                        <td>{{ $barang->stok }}</td>
-                        <td>Rp {{ number_format($barang->harga_modal, 0, ',', '.') }}</td>
-                        <td>Rp {{ number_format($barang->harga_jual, 0, ',', '.') }}</td>
-                        <td class="text-center" data-bs-toggle="modal"
-                            data-bs-target="#modalFoto{{ $barang->id_barang }}"><i class="bi bi-image"></i>
-                        </td>
+                        <td data-sort="{{ $barang->harga_modal }}">Rp
+                            {{ number_format($barang->harga_modal, 0, ',', '.') }}</td>
+                        <td data-sort="{{ $barang->harga_jual }}">Rp
+                            {{ number_format($barang->harga_jual, 0, ',', '.') }}</td>
+                        <td class="text-center cursor-pointer" data-bs-toggle="modal"
+                            data-bs-target="#modalFoto{{ $barang->id_barang }}"><i class="bi bi-image"></i></td>
 
                         <!-- Modal Foto -->
                         @include('kasir.components.modal-foto')
+
                         <td class="text-center">
                             <div class="d-flex justify-content-center align-items-center">
                                 <i class="bi bi-pen me-3 text-primary cursor-pointer" data-bs-toggle="modal"
@@ -64,7 +64,6 @@
 
                         <!-- Modal Edit Barang -->
                         @include('kasir.components.modal-edit-barang')
-
                     </tr>
                 @endforeach
 

@@ -34,16 +34,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="updateStok"
-                                    placeholder="Masukan Stok" value="{{ $barang->stok }}" />
-                                <label for="floatingInput">Stok
-                                    Barang</label>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     <div class="row g-2 mb-3">
                         <div class="col mb-0">
@@ -91,7 +82,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary"
                     data-bs-dismiss="modal">
-                    Close
+                    Tutup
                 </button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
